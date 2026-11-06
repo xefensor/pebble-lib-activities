@@ -384,6 +384,6 @@ library/app versions and normal pinned dependency, build and release validation.
 - [Native decoding, revisions and retention](../src/c/pebble-activities.c)
 - Dynamic: `src/c/dynamic.c`, `src/c/activity_presentation.h`,
   `src/c/music_layout.h` and `resources/fonts/font-provenance.json` in the
-  separately versioned `dynamic-watchface` repository.
+  separately versioned `pebble-watchface-dynamic` repository.
 - Size limits were checked in the local SDK used by the recovery build:
   `common/tools/inject_metadata.py`, load and virtual-size validation.
