@@ -1,5 +1,9 @@
 # Pebble Activities
 
+Repository: [pebble-lib-activities](https://github.com/xefensor/pebble-lib-activities),
+part of XOCE — Xef's Open Computing Ecosystem. The package remains
+`pebble-activities`; see the [repository migration notes](docs/REPOSITORY-MIGRATION.md).
+
 Semantic ongoing activities for **stock PebbleOS**. Published version **0.4.4**
 fixes missing activities after source failures, malformed responses and media pause.
 Version **0.4.3** reduced timer/subscription churn and fixed delivery lifecycle races.
@@ -102,7 +106,7 @@ scope in [validation](docs/VALIDATION.md).
 
 Provider schemas, exports and ACT1/ACT2/ACT3 formats are unchanged. Existing
 ownership, expiry, privacy and notification baseline rules remain in place.
-Published as the [0.4.4 development prerelease](https://github.com/xefensor/pebble-activities/releases/tag/v0.4.4).
+Published as the [0.4.4 development prerelease](https://github.com/xefensor/pebble-lib-activities/releases/tag/v0.4.4).
 The heading above retains the original release-notes identifier. The tested
 source, SDK package, tarball and tag remain frozen; documentation updates do not
 replace their bytes.
@@ -142,7 +146,7 @@ published 0.4.4 development prerelease.
   records without copying bitmap arrays or mutable capabilities.
 - Preserve every source revision, privacy, validity and native wire check.
 
-Published as the [0.4.2 development prerelease](https://github.com/xefensor/pebble-activities/releases/tag/v0.4.2).
+Published as the [0.4.2 development prerelease](https://github.com/xefensor/pebble-lib-activities/releases/tag/v0.4.2).
 Its tested source and package bytes remain frozen; later documentation updates
 do not replace the release archive.
 
@@ -165,11 +169,11 @@ do not replace the release archive.
 
 ## Download
 
-The current [GitHub development prerelease is 0.4.4](https://github.com/xefensor/pebble-activities/releases/tag/v0.4.4).
-Download its [library package](https://github.com/xefensor/pebble-activities/releases/download/v0.4.4/pebble-activities-0.4.4.tgz)
-or [SDK package](https://github.com/xefensor/pebble-activities/releases/download/v0.4.4/dist.zip),
-and verify [SHA256SUMS.txt](https://github.com/xefensor/pebble-activities/releases/download/v0.4.4/SHA256SUMS.txt).
-[Earlier releases](https://github.com/xefensor/pebble-activities/releases) retain
+The current [GitHub development prerelease is 0.4.4](https://github.com/xefensor/pebble-lib-activities/releases/tag/v0.4.4).
+Download its [library package](https://github.com/xefensor/pebble-lib-activities/releases/download/v0.4.4/pebble-activities-0.4.4.tgz)
+or [SDK package](https://github.com/xefensor/pebble-lib-activities/releases/download/v0.4.4/dist.zip),
+and verify [SHA256SUMS.txt](https://github.com/xefensor/pebble-lib-activities/releases/download/v0.4.4/SHA256SUMS.txt).
+[Earlier releases](https://github.com/xefensor/pebble-lib-activities/releases) retain
 their original tags and bytes. Install [Timer](https://github.com/xefensor/pebble-app-timer)
 separately to publish native countdowns.
 

@@ -1,5 +1,5 @@
 {
-  "repository": "xefensor/pebble-activities",
+  "repository": "xefensor/pebble-lib-activities",
   "kind": "activities",
   "display_name": "Pebble Activities",
   "tag_prefix": "v",

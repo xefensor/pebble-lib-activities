@@ -7,7 +7,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xefensor/pebble-activities.git"
+    "url": "https://github.com/xefensor/pebble-lib-activities.git"
   },
   "files": [
     "publisher.js",

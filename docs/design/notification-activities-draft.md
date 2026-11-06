@@ -603,7 +603,7 @@ animate. Physical-watch battery cost remains a measurement.
 The published Dynamic 0.11.0 audit records 64,908 virtual bytes against a
 65,535-byte limit, leaving **627 bytes**. Loaded image is 64,488 bytes. These
 figures do not measure runtime heap or worst-case stack. See the
-[published audit](https://github.com/xefensor/dynamic-watchface/blob/v0.11.0/docs/qa/0.11.0/native/bundle-audit.json).
+[published audit](https://github.com/xefensor/pebble-watchface-dynamic/blob/v0.11.0/docs/qa/0.11.0/native/bundle-audit.json).
 
 Replace/refactor existing generic and legacy-media rendering rather than add a
 third parallel renderer. Removing text continuation and diagnostic-age layouts

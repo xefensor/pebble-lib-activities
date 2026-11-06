@@ -2,7 +2,7 @@
 
 ## 0.4.4 GitHub prerelease publication — 5 November 2026
 
-Published the [0.4.4 development prerelease](https://github.com/xefensor/pebble-activities/releases/tag/v0.4.4)
+Published the [0.4.4 development prerelease](https://github.com/xefensor/pebble-lib-activities/releases/tag/v0.4.4)
 from tested source commit `df4f30f4a66419ce835959eeeec6de7999704fa0`.
 The automated release check and publication jobs pass. GitHub's published asset
 digests match the prepared frozen bytes:
@@ -109,9 +109,9 @@ were included in 0.4.4; earlier published release bytes remain preserved.
 
 ## Publication — 3 November 2026
 
-The [0.4.2 development prerelease](https://github.com/xefensor/pebble-activities/releases/tag/v0.4.2)
+The [0.4.2 development prerelease](https://github.com/xefensor/pebble-lib-activities/releases/tag/v0.4.2)
 was published from tested source
-[`45e848d7ef84044b465fddc43eeab310bb2c2594`](https://github.com/xefensor/pebble-activities/tree/45e848d7ef84044b465fddc43eeab310bb2c2594).
+[`45e848d7ef84044b465fddc43eeab310bb2c2594`](https://github.com/xefensor/pebble-lib-activities/tree/45e848d7ef84044b465fddc43eeab310bb2c2594).
 The documentation follow-up preserves the tag, SDK package, tarball and checksums.
 For a repeated release check, pass that tested commit with `prepare --commit`;
 the historical validation below retains its original scope.
@@ -162,7 +162,7 @@ candidate is local until separately published. Test/build logs are in
 
 ## 0.4.1 GitHub prerelease publication — 3 November 2026
 
-Published as a [GitHub development prerelease](https://github.com/xefensor/pebble-activities/releases/tag/v0.4.1)
+Published as a [GitHub development prerelease](https://github.com/xefensor/pebble-lib-activities/releases/tag/v0.4.1)
 from commit `769eabc4b2bb4242a0f2d81ed3575c459d373a4a`.
 Both branch checks and the release check/publication jobs pass. All three
 published assets were downloaded and match the prepared bytes:

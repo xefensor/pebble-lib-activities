@@ -62,3 +62,11 @@ bytes. Library and consuming-app versions advance independently.
 
 This repository uses the accompanying PolyForm Noncommercial license and required
 attribution. Preserve notices on copied or adapted code.
+
+## Repository identity
+
+The XOCE repository is `xefensor/pebble-lib-activities`; its public package name
+remains `pebble-activities`. Keep import/include paths and archive filenames
+compatible. Repository metadata and documentation edits do not repackage the
+published 0.4.4 bytes. Its release bootstrap retains the original tested artifact
+commit; see [repository migration notes](docs/REPOSITORY-MIGRATION.md).
