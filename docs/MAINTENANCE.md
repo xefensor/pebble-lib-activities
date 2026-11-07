@@ -15,15 +15,9 @@ New providers use summary/schema4, with content separate from host-owned placeme
 
 src/js owns injected publisher/provider/consumer helpers; include and src/c own bounded portable packet/state helpers. Root entry modules preserve public provider/consumer imports.
 
-## Phone persistence and evidence
+## Host lifecycle and evidence
 
-For apps with phone settings, keep active-writer selection, separate Android
-DOM/native storage views, exact application acknowledgements and bounded handoffs.
-Saving stays open where supported; uncertain writes retain the draft and explicit
-readback/retry. Discard cannot undo a write already sent. Load errors must not
-silently replace saved choices with editable defaults. Do not introduce unsolicited
-focus or scroll changes. Historical browser/emulator results do not validate a
-new build. Keep portable, packaged, simulated transport and real-device claims distinct.
+Publishers and consuming hosts inject their storage, clocks, transport and SDK callbacks. Native owners retain alarm/state authority; publication receipts do not establish disk flush or alarm acceptance. Preserve source/run identity and original observation/validity across reconnects. The library owns no app settings page or UI controller. Keep portable, packaged-host, emulator and physical-device evidence distinct.
 
 ## Dependencies, identities and licences
 

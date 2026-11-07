@@ -11,10 +11,7 @@
   "checksums_file": "releases/SHA256SUMS.txt",
   "notes": {
     "path": "README.md",
-    "heading": "## Version {version} local candidate"
-  },
-  "bootstrap": {
-    "version": "0.4.4",
-    "source_commit": "df4f30f4a66419ce835959eeeec6de7999704fa0"
+    "heading": "## Version {version}",
+    "historical_heading": "## Version {version} local candidate"
   }
 }
