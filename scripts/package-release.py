@@ -1,45 +1,40 @@
 #!/usr/bin/env python3
-"""Freeze the built library SDK and npm package as versioned release artifacts."""
+"""Explicitly freeze a new library version; never replace an existing tarball."""
 from pathlib import Path
-import hashlib
-import io
-import json
-import subprocess
-import tempfile
-import zipfile
+import hashlib,io,json,subprocess,tempfile,zipfile
 
 
-def package(root):
-    sdk = root / 'dist.zip'
-    with zipfile.ZipFile(sdk) as archive:
-        if archive.testzip() is not None:
-            raise ValueError('Corrupt SDK package')
-        files = {name: archive.read(name) for name in archive.namelist()}
-    buffer = io.BytesIO()
-    with zipfile.ZipFile(buffer, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
-        for name, data in sorted(files.items()):
-            info = zipfile.ZipInfo(name, (1980, 1, 1, 0, 0, 0))
-            info.create_system = 3
-            info.external_attr = 0o100644 << 16
-            info.compress_type = zipfile.ZIP_DEFLATED
-            archive.writestr(info, data, compresslevel=9)
-    sdk.write_bytes(buffer.getvalue())
-    releases = root / 'releases'
-    releases.mkdir(exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix='pebble-activities-pack-') as tmp:
-        result = subprocess.run(['npm', 'pack', '--pack-destination', tmp, '--json'],
-            cwd=root, check=True, capture_output=True, text=True)
-        metadata = json.loads(result.stdout)[0]
-        artifact = Path(tmp) / metadata['filename']
-        target = releases / artifact.name
-        target.write_bytes(artifact.read_bytes())
-    checksums = []
-    for path in (sdk, target):
-        checksum = hashlib.sha256(path.read_bytes()).hexdigest()
-        checksums.append(checksum + '  ' + str(path.relative_to(root)))
-        print(str(path.relative_to(root)), path.stat().st_size, checksum)
-    (releases / 'SHA256SUMS.txt').write_text('\n'.join(checksums) + '\n')
+def package(root,sdk_input=None):
+    metadata=json.loads((root/'package.json').read_text())
+    filename=metadata['name'].replace('@','').replace('/','-')+'-'+metadata['version']+'.tgz'
+    releases=root/'releases';target=releases/filename
+    if target.exists():raise ValueError('Frozen library version already exists; use a new version.')
+    sdk_input=sdk_input or root/'dist.zip'
+    with zipfile.ZipFile(sdk_input) as archive:
+        if archive.testzip() is not None:raise ValueError('Corrupt SDK package')
+        files={name:archive.read(name) for name in archive.namelist()}
+    buffer=io.BytesIO()
+    with zipfile.ZipFile(buffer,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
+        for name,data in sorted(files.items()):
+            info=zipfile.ZipInfo(name,(1980,1,1,0,0,0));info.create_system=3
+            info.external_attr=0o100644<<16;info.compress_type=zipfile.ZIP_DEFLATED
+            archive.writestr(info,data,compresslevel=9)
+    sdk=root/'dist.zip';sdk.write_bytes(buffer.getvalue());releases.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='pebble-library-release-') as directory:
+        result=subprocess.run(['npm','pack','--ignore-scripts','--pack-destination',directory,'--json'],cwd=root,check=True,capture_output=True,text=True)
+        packed=Path(directory)/json.loads(result.stdout)[0]['filename']
+        target.write_bytes(packed.read_bytes())
+    (releases/'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+str(p.relative_to(root))+'\n' for p in (sdk,target)))
+    print(target)
 
 
-if __name__ == '__main__':
-    package(Path(__file__).resolve().parents[1])
+if __name__=='__main__':
+    from repo_workflow import check_build
+    root=Path(__file__).resolve().parents[1]
+    sdk=root/'build/candidate/dist.zip'
+    # The version guard also runs before checking SDK availability.
+    metadata=json.loads((root/'package.json').read_text())
+    target=root/'releases'/(metadata['name'].replace('@','').replace('/','-')+'-'+metadata['version']+'.tgz')
+    if target.exists():raise ValueError('Frozen library version already exists; use a new version.')
+    check_build(root,sdk)
+    package(root,sdk)

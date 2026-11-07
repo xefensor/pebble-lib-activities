@@ -1,5 +1,10 @@
 # Pebble Activities
 
+Main contains the current implementation. [Development](CONTRIBUTING.md),
+[current maintenance contracts](docs/MAINTENANCE.md) and [release policy](docs/RELEASING.md)
+are the active contributor references. Public downloads and frozen evidence keep
+their original versions; a merge to main is not publication.
+
 Repository: [pebble-lib-activities](https://github.com/xefensor/pebble-lib-activities),
 part of XOCE — Xef's Open Computing Ecosystem. The package remains
 `pebble-activities`; see the [repository migration notes](docs/REPOSITORY-MIGRATION.md).
@@ -360,30 +365,11 @@ the watch; the host chooses that presentation policy.
 
 ## Build and check
 
-Use Node.js, Python 3, a C99 compiler and an official Pebble SDK with Emery support.
-
-```sh
-npm ci --ignore-scripts
-npm test
-pebble build
-```
-
-Package the built library and check the release helpers:
-
-```sh
-python3 -m unittest discover -s tests -p 'test_*release.py'
-python3 scripts/package-release.py
-```
-
-The release script freezes the current SDK package and writes the versioned npm
-package into `releases/`; both download assets receive checksums. Timer is built
-and released from [its own repository](https://github.com/xefensor/pebble-app-timer).
-A library release does not require a Timer build, and installed apps retain their
-pinned library version until rebuilt.
-
-Consumers should pin the versioned `.tgz` and record its checksum. Updating this
-repository does not silently update installed PBWs. Public release artifacts and
-tags remain immutable; changed bytes require a new version.
+Use [CONTRIBUTING](CONTRIBUTING.md) for the current SDK/development workflow.
+`npm test` runs portable JS/C and workflow guards; `npm run build` writes
+`build/candidate/dist.zip` without replacing the frozen root SDK.
+`npm run pack:candidate` creates an isolated development npm package.
+Release packaging is a separate [explicit milestone](docs/RELEASING.md).
 
 ## License
 
