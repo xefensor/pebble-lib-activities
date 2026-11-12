@@ -59,6 +59,6 @@ Development outputs belong in ignored `build/`; published archives stay frozen.
 
 ## Version 0.4.5
 
-Builds the unchanged ACT1–3 / schema 1–4 runtime for Emery, Flint and Gabbro with SDK 4.44. Public APIs, leases, identities and owner authority are unchanged.
+Builds the unchanged ACT1–3 / schema 1–4 runtime for Emery and Gabbro with SDK 4.44. Public APIs, leases, identities and owner authority are unchanged.
 
 This is local release preparation; published downloads above remain frozen.

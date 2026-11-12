@@ -5,13 +5,14 @@
   "tag_prefix": "v",
   "prerelease": true,
   "assets": [
-    "dist.zip",
+    "releases/pebble-activities-{version}-sdk.zip",
     "releases/pebble-activities-{version}.tgz"
   ],
-  "checksums_file": "releases/SHA256SUMS.txt",
+  "checksums_file": "releases/SHA256SUMS-{version}.txt",
   "notes": {
     "path": "README.md",
     "heading": "## Version {version}",
     "historical_heading": "## Version {version} local candidate"
-  }
+  },
+  "sdk_archive": "releases/pebble-activities-{version}-sdk.zip"
 }

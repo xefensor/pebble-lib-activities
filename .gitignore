@@ -9,3 +9,6 @@ dist/
 
 
 /.venv/
+
+# Isolated pinned SDK/CLI environment.
+/.build-tools/
