@@ -166,7 +166,10 @@ def validate_artifacts(root, config, commit, package, assets):
         "Package version differs",
     )
     for path, content in files.items():
-        require(content == committed(root, commit, path), "Stale Activities package input: " + path)
+        # dist.zip inside npm is the selected versioned SDK asset, checked above.
+        # The historical root SDK belongs to its original release.
+        if path != "dist.zip":
+            require(content == committed(root, commit, path), "Stale Activities package input: " + path)
     names = git(root, "ls-tree", "-r", "--name-only", "-z", commit).decode().split("\0")
     for path in names:
         if path.startswith(("src/", "include/")):

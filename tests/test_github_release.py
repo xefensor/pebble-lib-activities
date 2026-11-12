@@ -366,7 +366,8 @@ class ReleaseTests(unittest.TestCase):
         assets={sdk_path:(self.root/'dist.zip').read_bytes(),
                 'releases/fixture-1.2.3.tgz':(self.root/'releases/fixture-1.2.3.tgz').read_bytes()}
         (self.root/'dist.zip').write_bytes(b'historical SDK remains independent')
-        release.validate_artifacts(self.root,config,self.original,self.package,assets)
+        commit=self.commit()
+        release.validate_artifacts(self.root,config,commit,self.package,assets)
         self.assertEqual((self.root/'dist.zip').read_bytes(),b'historical SDK remains independent')
 
     def test_package_rejects_stale_exported_header(self):
