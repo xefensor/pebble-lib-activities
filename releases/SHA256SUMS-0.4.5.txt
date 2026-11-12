@@ -1,0 +1,2 @@
+091be5b0d0aa4f5482cbadf66628884b3cffe840b911ea7a3a28458f551da7a9  pebble-activities-0.4.5-sdk.zip
+ac1381659a573e52c60176bef0be96635eb6d4ecb9882bbb1d1d7a3f1732844e  pebble-activities-0.4.5.tgz
