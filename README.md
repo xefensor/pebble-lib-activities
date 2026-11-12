@@ -32,7 +32,7 @@ compatible.
 
 ## Compatibility
 
-The current SDK target is **Pebble Time 2 / Emery**, using **Pebble SDK 4.33.1**.
+The development SDK targets are **Emery / Time 2, Flint / Pebble 2 Duo and Gabbro / Round 2**, using **Pebble SDK 4.44**.
 
 ## Version 0.4.4
 
@@ -56,3 +56,9 @@ Development outputs belong in ignored `build/`; published archives stay frozen.
 ## Licence
 
 [PolyForm Noncommercial 1.0.0](LICENSE). Preserve bundled third-party notices and attribution.
+
+## Version 0.4.5
+
+Builds the unchanged ACT1–3 / schema 1–4 runtime for Emery, Flint and Gabbro with SDK 4.44. Public APIs, leases, identities and owner authority are unchanged.
+
+This is local release preparation; published downloads above remain frozen.
