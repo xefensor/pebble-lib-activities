@@ -1,10 +1,11 @@
 # Activity cards and ACT2 version 2
 
-**Advanced compatibility and native transport.** New plugins should use the simpler
-[notification-style activity API](ACTIVITY-SPECIFICATION.md). This document
+**Advanced compatibility and native transport.** New plugins should use
+[schema 4 summaries and ACT3](SUMMARY-SPECIFICATION.md). This document
 preserves the existing source/native compatibility contract.
 
-Implemented by the unpublished Activities 0.2.0 candidate. This extends the
+Introduced in the Activities 0.2.0 development candidate and retained by the
+public 0.4.4 prerelease. This extends the
 project convention on stock PebbleOS; it is not an official platform standard.
 The [schema 1 and ACT1 APIs](SPECIFICATION.md) remain available for existing
 providers and consumers. Consumers explicitly opt into `nativeFormat: 2`.

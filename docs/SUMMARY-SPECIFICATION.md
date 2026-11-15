@@ -1,6 +1,7 @@
 # Activity summaries and ACT3
 
-Activities 0.4.0 implements `activity/summary` schema 4. Plugins publish semantic
+The public 0.4.4 development prerelease implements `activity/summary` schema 4,
+introduced in 0.4.0. Plugins publish semantic
 **standard** or **media** summaries; each consumer chooses layout and priority.
 The library remains a package, not an installed background service. Existing
 schema 1/2/3 and ACT1/ACT2 APIs retain their meanings.
@@ -21,8 +22,12 @@ var provider = summary.defineProvider({
     })];
   }
 });
-Pebble.registerSourceHandler(provider.handleSource);
 ```
+
+Register `provider.handleSource` through a serialized SDK request queue as in
+[provider usage](USAGE.md#publish-an-activity). The
+[complete tutorial](https://xefensor.github.io/xoce/docs/develop/activities/)
+includes the manifest, request dispatcher, pinned package and portable tests.
 
 Declare `provider.sourceDeclaration` or `summary.SOURCE_PROPERTIES` for the
 `activity/summary` item. Suggested refresh is 30 seconds and fresh validity is

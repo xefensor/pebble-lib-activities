@@ -1,6 +1,8 @@
 # Simple activity contract — schema 3
 
-This is the current plugin-facing API in Pebble Activities 0.3.0. A source
+**Schema 3 compatibility.** This API was introduced in Pebble Activities 0.3.0
+and remains supported by the public 0.4.4 prerelease. New providers should use
+[schema 4 summaries](SUMMARY-SPECIFICATION.md). In this older model, a source
 publishes **content**, optional **detail** and an optional **image**, together
 with its app identity and source lifecycle. A host chooses a normal or compact
 presentation. Any activity kind can occupy either host role. Plugins do not

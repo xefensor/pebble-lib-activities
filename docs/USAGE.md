@@ -1,5 +1,11 @@
 # Using Pebble Activities
 
+This guide describes the public **0.4.4 development prerelease**. New providers
+use `activity/summary` schema 4 and new native hosts explicitly select ACT3.
+The [complete provider tutorial](https://xefensor.github.io/xoce/docs/develop/activities/)
+has a pinned manifest, tests and PBW build workflow. Independently released apps
+may bundle newer snapshots; those are not additional public library downloads.
+
 ## Publish an activity
 
 ```js
@@ -18,7 +24,13 @@ var provider = summary.defineProvider({
     })];
   }
 });
-Pebble.registerSourceHandler(provider.handleSource);
+var sourceQueue = Promise.resolve();
+Pebble.registerSourceHandler(function (request, respond) {
+  function read() { return provider.handleSource(request, respond); }
+  var pending = sourceQueue.then(read, read);
+  sourceQueue = pending.catch(function () {});
+  return pending;
+});
 ```
 
 Use your installed plugin's UUID. Declare the provider's `sourceDeclaration`
@@ -26,6 +38,8 @@ in the plugin manifest: category `activity`, item `summary`, with
 `summary.SOURCE_PROPERTIES`. The library manages the response metadata; plugins
 author the content shown above. Keep one stable ID for the same ongoing item,
 and return `[]` when nothing should be shown.
+Serialize requests for this provider as above, including asynchronous reads.
+The helper registers no SDK handlers and starts no polling timers itself.
 
 Choose the content that fits your source:
 
@@ -70,8 +84,8 @@ scope in [validation](../docs/VALIDATION.md).
 
 | Part | Responsibility |
 | --- | --- |
-| [Simple activity API](../docs/ACTIVITY-SPECIFICATION.md) | Content, optional detail/image, app identity and lifecycle through `activity/live` schema 3 |
-| Compatibility contracts | Advanced schema 2 and legacy schema 1 remain supported; ACT2 native transport stays internal |
+| [Summary API](SUMMARY-SPECIFICATION.md) | Standard/media content and optional navigation/actions through `activity/summary` schema 4; ACT3 native projection |
+| Compatibility contracts | [Schema 3](ACTIVITY-SPECIFICATION.md), [schema 2/ACT2](VIEW-SPECIFICATION.md) and [schema 1/ACT1](SPECIFICATION.md) remain supported |
 | JavaScript publisher and provider | Accept native snapshots into shared phone-side storage, return revision receipts, and answer plugin reads |
 | JavaScript consumer | Discover compatible providers, normalize their state and send a bounded projection through the host's queue |
 | Portable C helpers | Validate atomic packets, track sessions and expiry, and calculate countdown or elapsed time |
@@ -104,27 +118,37 @@ Reaching zero locally does not prove that the originating app completed or rang.
 
 ## Host and native integration
 
-Use `createActivities({..., nativeFormat: 2})` with the host’s existing queue,
-clock and SDK lifecycle. Discovery prefers `activity/live`, then the advanced
-`activity/card`, then legacy `activity/session`, once per compatible provider.
+Use `require('pebble-activities/host').createActivities({..., nativeFormat: 3})`
+with the host’s existing queue, clock and SDK lifecycle. Discovery prefers
+`activity/summary`, then `activity/live`, `activity/card` and `activity/session`,
+once per compatible provider. `nativeFormat: 2` does not discover summary-only
+providers; retain it only for hosts deliberately using the ACT2 compatibility profile.
 `catalogue()` supplies validated internal views to host selection; plugins never
 choose Dynamic’s priority or layout. Another host can keep its own order and UI.
 
-`activity.toView()` compiles a simple record into the existing ACT2 transport.
-The native packet is unchanged. Its mandatory field bookkeeping stays internal;
-public activities contain no `main`, `support`, `meter` or layout properties.
-The [simple source contract](../docs/ACTIVITY-SPECIFICATION.md) is the current
-plugin authoring guide. [Schema 2 and ACT2](../docs/VIEW-SPECIFICATION.md) and
-[schema 1/ACT1](../docs/SPECIFICATION.md) remain supported compatibility contracts.
-Historical architecture/browser studies describe earlier design decisions and
-do not add requirements to the simple API.
+`summary.toView(ownerEnvelope)` compiles a validated summary into a canonical
+card; `summaryView.encode` writes ACT3. The [summary contract](SUMMARY-SPECIFICATION.md#act3-native-profile)
+defines the native profile and optional `onView` mapping. Hosts forward native
+session requests to `refresh` with the actual session token, forward connection
+changes, call `configure` after settings changes, and call `stop` when disposing
+the consumer. They own one serialized queue and must only acknowledge actual
+ordered transport delivery; a queued or superseded view is not delivery.
+
+Native hosts include `pebble-activity-view.h` and use the Pav API, which decodes
+both ACT2 and ACT3. Public summaries contain semantic content, not native
+`main`, `support`, `meter` or layout fields. Schema 1–3 authoring and
+`activity.toView()`/ACT2 remain compatibility APIs. Historical architecture and
+browser studies do not add requirements to new summary providers.
 
 For native watchapps, `createPublisher` still accepts authoritative bridge
 snapshots, validates revision floors and writes/reads back public shared state
-before issuing receipts. `createProvider({presentation: 'simple', appName: 'Timer',
-...})` exposes those saved snapshots as `activity/live`; existing session/card
-sources remain available. No alarm, native storage or receipt ownership moves
-to the consuming watchface.
+before issuing receipts. For schema 4, use `summary.defineSnapshotProvider`
+with `publisher.readSnapshots` and `summary.adapters.timerSnapshot` for the
+saved Timer bridge records. Preserve their original observation, validity and
+owner revision; a poll is not a new native observation. The [snapshot contract](SUMMARY-SPECIFICATION.md#publication-and-imported-owners)
+defines this adapter. Existing `createProvider({presentation: 'simple', ...})`
+still exposes `activity/live`; session/card sources remain compatibility options.
+No alarm, native storage or receipt ownership moves to the consuming watchface.
 
 `createContext` adapts standard Music and notification sources with their
 existing privacy/baseline rules. Its transient Music activity now uses the

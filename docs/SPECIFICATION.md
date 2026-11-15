@@ -1,7 +1,7 @@
 # Pebble Activities specification version 1
 
-**Legacy compatibility.** New plugins should use the simpler
-[notification-style activity API](ACTIVITY-SPECIFICATION.md). This document
+**Legacy compatibility.** New plugins should use
+[schema 4 summaries and ACT3](SUMMARY-SPECIFICATION.md). This document
 preserves the existing source/native compatibility contract.
 
 This is the public convention implemented by pebble-activities 0.1.0. It is a

@@ -30,6 +30,11 @@ host usage](docs/USAGE.md) · [Summary specification](docs/SUMMARY-SPECIFICATION
 own source truth; consumers own placement and presentation. Schema 1–4 and ACT1–3 remain
 compatible.
 
+The [provider tutorial](https://xefensor.github.io/xoce/docs/develop/activities/)
+includes a complete, pinned 0.4.4 example with manifest, serialized SDK requests,
+offline tests and a phone-only PBW builder. Current apps can bundle newer snapshots;
+their pins do not change this public prerelease.
+
 ## Compatibility
 
 The current SDK target is **Pebble Time 2 / Emery**, using **Pebble SDK 4.33.1**.
@@ -37,6 +42,10 @@ The current SDK target is **Pebble Time 2 / Emery**, using **Pebble SDK 4.33.1**
 ## Version 0.4.4
 
 - Retry failed source bindings during configuration and periodic discovery while
+  keeping healthy subscriptions and preserving a pending native reset-clear barrier.
+- Recover valid cached summaries, reject malformed complete responses, and preserve
+  paused media state. See the [original release notes](docs/history/readme-before-maintenance.md#version-044-local-candidate)
+  for the full change list and its original validation scope.
 
 ## Development
 
